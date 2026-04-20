@@ -59,7 +59,7 @@ def response(id: str):
                             outp.write(json.dumps(responses))
                         return response['result']            
         waittime=datetime.datetime.now()-starttime
-        if waittime.total_seconds()>15:
+        if waittime.total_seconds()>60:
             return "{'result':'Error: REST response timeout. Unknown success'}"
 
 
