@@ -1057,23 +1057,8 @@ def processInverterInfo(plant: Plant):
             today_load= max(0,round((energy_today_output['Invertor_Energy_Today_kWh']-energy_today_output['AC_Charge_Energy_Today_kWh']) -
                         (energy_today_output['Export_Energy_Today_kWh']-energy_today_output['Import_Energy_Today_kWh'])+energy_today_output['PV_Energy_Today_kWh'], 2))
             
-        now=datetime.datetime.now(tz=GivLUT.timezone)
-        if multi_output_old:
-            
-            if today_self < multi_output_old["Energy"]["Today"]['Self_Consumption_Energy_Today_kWh'] and not (now.hour==0 and now.minute==0):       #Stop any rounding calculation from making load reduce in Today stats
-                energy_today_output['Self_Consumption_Energy_Today_kWh']=multi_output_old["Energy"]["Today"]['Self_Consumption_Energy_Today_kWh']
-            else:
-                energy_today_output['Self_Consumption_Energy_Today_kWh']=today_self
-
-            if now.hour == 0 and now.minute == 0 :
-                energy_today_output['Load_Energy_Today_kWh'] = 0
-            elif today_load < multi_output_old["Energy"]["Today"]['Load_Energy_Today_kWh']:       #Stop any rounding calculation from making load reduce in Today stats
-                energy_today_output['Load_Energy_Today_kWh']=multi_output_old["Energy"]["Today"]['Load_Energy_Today_kWh']
-            else:
-                energy_today_output['Load_Energy_Today_kWh']=today_load    
-        else:
-            energy_today_output['Load_Energy_Today_kWh']=today_load
-            energy_today_output['Self_Consumption_Energy_Today_kWh']=today_self
+        energy_today_output['Load_Energy_Today_kWh']=today_load
+        energy_today_output['Self_Consumption_Energy_Today_kWh']=today_self
 
     ############  Core Power Stats    ############
 
